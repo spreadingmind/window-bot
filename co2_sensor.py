@@ -31,7 +31,7 @@ def run():
                 time.sleep(1)
                 bytesData = ser.read(9)
                 concentration = calculatePPM(bytesData)
-                asyncio.get_event_loop().run_until_complete(pushPPMValue(concentration))
+                asyncio.get_event_loop().run_until_complete(pushPPMValue(str(concentration)))
                 print('Concentration is %s ppm ' % concentration)
                 time.sleep(2)
     except Exception as e:

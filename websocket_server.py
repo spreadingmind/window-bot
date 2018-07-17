@@ -4,7 +4,7 @@ import websockets
 async def pullPPMValue(websocket, path):
     value = await websocket.recv()
     await websocket.send(value)
-    print(f"> CO2 concentration: {value}")
+    print('CO2 concentration: ', value)
 
 start_server = websockets.serve(pullPPMValue, 'localhost', 8765)
 
