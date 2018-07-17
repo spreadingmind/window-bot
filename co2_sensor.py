@@ -4,11 +4,6 @@ import asyncio
 import websockets
 
 port = '/dev/ttyAMA0'
-websocket_port = 'ws://localhost:8765' 
-
-import asyncio
-import websockets
-
 websocket_port = 'ws://localhost:8765'
 
 async def pushPPMValue(value):

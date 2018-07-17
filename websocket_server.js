@@ -22,9 +22,14 @@ wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
     if (event) {
       event.emit('data', message);
-      console.log('received: %s', message);
+      console.log('received: ', message);
     }
-    // send message via bot
+    console.log(`buyan: ${message}`);
+    wss.clients.forEach(function each(client) {
+        if (client !== ws && client.readyState === require('ws').OPEN) {
+	    client.send(message);
+	}
+    });
   });
 });
 
