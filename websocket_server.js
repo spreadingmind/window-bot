@@ -1,7 +1,8 @@
+require('dotenv').config();
 const { createServer }  = require('http');
-const { Server } = require('ws');
+const { Server, OPEN } = require('ws');
 const { EventEmitter } = require('events');
-const ws_port = 8765;
+const ws_port = process.env.WEB_SOCKET_PORT;
 
 let event = null;
 
@@ -24,9 +25,8 @@ wss.on('connection', function connection(ws) {
       event.emit('data', message);
       console.log('received: ', message);
     }
-    console.log(`buyan: ${message}`);
     wss.clients.forEach(function each(client) {
-        if (client !== ws && client.readyState === require('ws').OPEN) {
+        if (client !== ws && client.readyState === OPEN) {
 	    client.send(message);
 	}
     });
