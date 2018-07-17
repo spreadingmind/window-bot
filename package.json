@@ -1,0 +1,27 @@
+{
+  "name": "windowbot",
+  "version": "1.0.0",
+  "description": "Window bot for making your life better",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "dotenv": "^6.0.0",
+    "events": "^3.0.0",
+    "http": "0.0.0",
+    "slackbots": "^1.1.0",
+    "ws": "^5.2.2"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spreadingmind/window-bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spreadingmind/window-bot/issues"
+  },
+  "homepage": "https://github.com/spreadingmind/window-bot#readme"
+}
