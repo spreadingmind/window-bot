@@ -1,7 +1,19 @@
 #!/usr/bin/env python
-import serial, time, sys, struct
-port = '/dev/ttyAMA0'
+import serial, time, sys
+import asyncio
+import websockets
 
+port = '/dev/ttyAMA0'
+websocket_port = 'ws://localhost:8765' 
+
+import asyncio
+import websockets
+
+websocket_port = 'ws://localhost:8765'
+
+async def pushPPMValue(value):
+    async with websockets.connect(websocket_port) as websocket:
+        await websocket.send(value)
 
 def calculatePPM(bytesData):
     concentration = bytesData[2]*256 + bytesData[3]
@@ -19,6 +31,7 @@ def run():
                 time.sleep(1)
                 bytesData = ser.read(9)
                 concentration = calculatePPM(bytesData)
+                asyncio.get_event_loop().run_until_complete(pushPPMValue(concentration))
                 print('Concentration is %s ppm ' % concentration)
                 time.sleep(2)
     except Exception as e:
@@ -31,3 +44,4 @@ def run():
 
 if __name__ == '__main__':    
     run()
+
