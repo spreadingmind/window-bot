@@ -4,21 +4,22 @@ port = '/dev/ttyAMA0'
 
 
 def calculatePPM(bytesData):
-    highLevel = struct.unpack('B', bytesData[2])[0]*256
-    lowLevel = struct.unpack('B', bytesData[3])[0]
-    concentration = highLevel+lowLevel
+    concentration = bytesData[2]*256 + bytesData[3]
     return concentration
 
 def run():
     try:
         with serial.Serial(port=port, baudrate=9600, timeout=10.0) as ser:
-            print ('PORT OPEN: ', ser.is_open) 
+            print ('PORT OPENED: ', ser.is_open)
+            if not ser.is_open:
+                print ('Check if CO2 sensor is connected. Exiting')
+                sys.exit()
             while True:
-                ser.write('\xff\x01\x86\x00\x00\x00\x00\x00\x79')
+                ser.write(u'\xff\x01\x86\x00\x00\x00\x00\x00\x79'.encode('latin-1'))
                 time.sleep(1)
                 bytesData = ser.read(9)
                 concentration = calculatePPM(bytesData)
-                print('Concentration is %s ppm '% concentration)
+                print('Concentration is %s ppm ' % concentration)
                 time.sleep(2)
     except Exception as e:
         print (e)
