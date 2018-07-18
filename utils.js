@@ -12,6 +12,9 @@ module.exports = {
     return result;
   },
   checkForGreetingMessage: (text) => {
+    if (!text) {
+      return false;
+    }
     return (text && constants.user_greetings.indexOf(text) !== -1 || 
              constants.user_greetings.some((greet) => {
             return text.startsWith(greet);
