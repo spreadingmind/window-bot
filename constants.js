@@ -2,7 +2,7 @@ module.exports = {
   "helptext": ":point_right: To get current CO2 level and details about concentration, type `lvl`\n:point_right: To get live graph of CO2 concentration, type `graph`",
   "co2_levels": {
     "co2_low": {
-      "details": "Good! This concentration is very low. Are you outside",
+      "details": "Good! This concentration is very low. Are you outside?",
       "interval": [
         0,
         350
@@ -16,21 +16,21 @@ module.exports = {
       ]
     },
     "co2_poor": {
-      "details": "Woo, too much CO2! Prepate for complaints of poor air and drowsiness.",
+      "details": "Woo, too much CO2! Prepate for complaints of poor air and drowsiness.\n*Open the window*!",
       "interval": [
         1000,
         2000
       ]
     },
     "co2_bad": {
-      "details": "Man, too bad! Headaches, sleepiness and stagnant, stale, stuffy air. Poor concentration, loss of attention, increased heart rate and slight nausea may also be present.",
+      "details": "Man, too bad! Headaches, sleepiness and stagnant, stale, stuffy air. Poor concentration, loss of attention, increased heart rate and slight nausea may also be present.\n *Open the window!*",
       "interval": [
         2000,
         5000
       ]
     },
     "co2_danger": {
-      "details": "Dangerously high amount of CO2. This is workplace exposure limit in most jurisdictions.",
+      "details": "Dangerously high amount of CO2. This is a workplace exposure limit in most jurisdictions.\n *Go out and sue your boss!*",
       "interval": [
         5000,
         40000

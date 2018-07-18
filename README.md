@@ -9,11 +9,11 @@
 
 2. CO2 leven is then calculated into ppm (parts per million) - a standard concentration unit
 
-3. Based on standard researched healty CO2 concentration levels, the bot evaluates whether the CO2 level is too high. If this is the case, it sends a message in Slack asking to open the window.
+3. Based on standard researched healty CO2 concentration levels, the bot evaluates whether the CO2 level is too high. If this is the case, it sends a message in Slack asking to open the window. You can also query Slack bor for current CO2 level using `lvl` command or for a live graph using `graph` command
 
     For healthy CO2 concentration levels, see
     https://www.kane.co.uk/knowledge-centre/what-are-safe-levels-of-co-and-co2-in-rooms
 
 4. PROFIT
 
-## Science, bitch!
+## Science, biiiiiiiiiitch
