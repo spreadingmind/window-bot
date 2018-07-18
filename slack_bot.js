@@ -29,11 +29,14 @@ class SlackBot {
       if (message.text && message.text === 'help') {
         return this.bot.postMessage(message.channel, constants.helptext);
       }
+      if (message.text && message.text === 'show') {
+          return this.bot.postMessage(message.channel, constants.showText(`http://${webSocketHost}:${webSocketPort}`));
+      }
     })
   }
 
   getCurrentLevel() { 
-    return axios.get(`http://${webSocketHost}:${webSocketPort}`)
+    return axios.get(`http://${webSocketHost}:${webSocketPort}/get`)
       .then((data) => {
         return data.data;
       })

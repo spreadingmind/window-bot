@@ -38,5 +38,6 @@ module.exports = {
     }
   },
   "level_info": (lvl, details) => {return 'CO2 level is `' + `${lvl}` + '` ppm.\n' + `${details}`},
-  "oops": "Oops, the bot is down or smth went wrong :-1:"
+  "oops": "Oops, the bot is down or smth went wrong :-1:",
+  "showText": (url) => `See the live stream here - ${url}`,
 }
