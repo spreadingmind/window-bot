@@ -7,44 +7,41 @@ const constants = require('./constants.js');
 const { getDetailsByValue, checkForGreetingMessage } = require('./utils');
 
 class SlackBot {
-    constructor() {
+  constructor() {
     this.bot = new slackBot({
       token: process.env.BOT_TOKEN,
       name: 'windowbot'
     });
     this.bot.on('message', async (message) => {
-      if (message.type && message.type === 'hello' || 
-          message.username && message.username === 'windowbot') {
+      if (message.type && message.type === 'hello' ||
+        message.username && message.username === 'windowbot') {
         return;
       }
-      if (message.text || message.content) {
-        if (message.text === 'lvl' ||
+      if (message.text && message.text === 'lvl' ||
         message.content && message.content === 'lvl') {
-          const currentLvl = await this.getCurrentLevel();
-          if (!currentLvl) {
-            return;
-          }
-          const details = await getDetailsByValue(Number(currentLvl));
-          return this.bot.postMessage(message.channel, constants.level_info(currentLvl, details));
-    }
-      if (message.text === 'help') {
+        const currentLvl = await this.getCurrentLevel();
+        if (!currentLvl) {
+          return;
+        }
+        const details = await getDetailsByValue(Number(currentLvl));
+        return this.bot.postMessage(message.channel, constants.level_info(currentLvl, details));
+      }
+      if (message.text && message.text === 'help') {
         return this.bot.postMessage(message.channel, constants.helptext);
       }
-      if (message.text === 'graph' || message.text === 'stream') {
-          return this.bot.postMessage(message.channel, constants.graphText(`http://${webSocketHost}:${webSocketPort}`));
+      if (message.text && message.text === 'show' || message.text === 'stream') {
+        return this.bot.postMessage(message.channel, constants.graphText(`http://${webSocketHost}:${webSocketPort}`));
       }
       if (checkForGreetingMessage(message.text)) {
         return this.bot.postMessage(message.channel, constants.greeting);
       }
-      else {
-        return this.bot.postMessage(message.channel, constants.sorry)
+      else if (message.subtitle === 'windowbot (bot)') {
+        return;
       }
-    }
-
-    })
+    });
   }
 
-  getCurrentLevel() { 
+  getCurrentLevel() {
     return axios.get(`http://${webSocketHost}:${webSocketPort}/co2`)
       .then((data) => {
         return data.data;
