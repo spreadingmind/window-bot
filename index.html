@@ -1,58 +1,84 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
-        <style>
-            html {
-                font-family: 'Roboto Condensed', sans-serif;
-            }
-            html body header {
-                text-align: center;
-            }
-            html body .container {
-                width: 800px;
-                margin: 0 auto;
-            }
-        </style>
-    </head>
-    <body>
-        <header>
-            <h1>WINDOW BOT</h3>
-        </header>
-        <div class="container">
-            <div class="ct-chart ct-perfect-fourth"></div>
-        </div>
-        <script>
-            const socket = new WebSocket('ws://192.168.10.24:8765');
-            const dataset = [];
-            const data = {
-                labels: [],
-                series: [dataset]
-            };
 
-            socket.addEventListener('message', function (event) {
-                dataset.push(Number(event.data));
-                const date = new Date();
-                data.labels.push(`${date.getMinutes()}:${date.getSeconds()}`);
-                if (dataset.length > 15) {
-                    dataset.shift();
-                    data.labels.shift();
-                }
-                chart.update(data);
-            });
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <style>
+        html {
+            font-family: 'Roboto Condensed', sans-serif;
+        }
 
-            const chart = new Chartist.Line(
-                '.ct-chart',
-                data,
-                {
-                    fullWidth: true,
-                    chartPadding: {
-                        right: 40,
+        html body header {
+            text-align: center;
+        }
+
+        html body .container {
+            width: 1000px;
+            margin: 0 auto;
+        }
+        .ct-perfect-fourth {
+            overflow: visible
+        }
+        .ct-label {
+            font-size: 15px;
+        }
+        .ct-chart.ct-perfect-fourth > svg {
+            overflow: visible;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>CO2 LEVEL</h3>
+    </header>
+    <div class="container">
+        <div class="ct-chart ct-perfect-fourth"></div>
+    </div>
+    <script>
+        const socket = new WebSocket('ws://192.168.10.24:8765');
+        const dataset = [];
+        const data = {
+            labels: [],
+            series: [dataset]
+        };
+
+        socket.addEventListener('message', function (event) {
+            dataset.push(Number(event.data));
+            const date = new Date();
+            data.labels.push(`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
+            if (dataset.length > 15) {
+                dataset.shift();
+                data.labels.shift();
+            }
+            chart.update(data);
+        });
+
+        const chart = new Chartist.Line(
+            '.ct-chart',
+            data,
+            {
+                fullWidth: true,
+                chartPadding: {
+                    right: 40,
+                },
+                axisY: {
+                    type: Chartist.FixedScaleAxis,
+                    high: 10000,
+                    low: 0,
+                    divisor: 10,
+                    stretch: true,
+                    labelInterpolationFnc: function (value) {
+                        if (value == 1000) {
+                            return 'STUFFY AIR LVL'
+                        } else return value;
                     },
                 },
-            );
-        </script>
-    </body>
+            }
+        );        
+    </script>
+</body>
+
 </html>
