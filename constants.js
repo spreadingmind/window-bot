@@ -1,5 +1,5 @@
 module.exports = {
-  "helptext": ":point_right: To get current CO2 level and details about concentration, type `lvl`\n:point_right: To get live graph of CO2 concentration, type `graph`",
+  "helptext": ":point_right: To get current CO2 level and details about concentration, type `lvl`\n:point_right: To get live graph of CO2 concentration, type `graph` or `stream`",
   "co2_levels": {
     "co2_low": {
       "details": "Good! This concentration is very low. Are you outside?",
@@ -37,7 +37,10 @@ module.exports = {
       ]
     }
   },
-  "level_info": (lvl, details) => {return 'CO2 level is `' + `${lvl}` + '` ppm.\n' + `${details}`},
+  "level_info": (lvl, details) => 'CO2 level is `' + `${lvl}` + '` ppm.\n' + `${details}`,
   "oops": "Oops, the bot is down or smth went wrong :-1:",
-  "showText": (url) => `See the live stream here - ${url}`,
+  "graphText": (url) => `See live stream here :point_right: ${url}`,
+  "greeting": "Hey mate :wink:",
+  "user_greetings": ['hi', 'hey', 'Hi', 'Hey', 'Yo', 'yo', 'ping'],
+  "sorry": "Sorry bro, I don't get you. Type `help` to view commands."
 }

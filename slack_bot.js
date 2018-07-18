@@ -4,7 +4,7 @@ const axios = require('axios');
 const webSocketHost = process.env.WEB_SOCKET_HOST || localhost
 const webSocketPort = process.env.WEB_SOCKET_PORT;
 const constants = require('./constants.js');
-const { getDetailsByValue } = require('./utils');
+const { getDetailsByValue, checkForGreetingMessage } = require('./utils');
 
 class SlackBot {
     constructor() {
@@ -17,26 +17,36 @@ class SlackBot {
           message.username && message.username === 'windowbot') {
         return;
       }
-      if (message.text && message.text === 'lvl' ||
-          message.content && message.content === 'lvl') {
-            const currentLvl = await this.getCurrentLevel();
-            if (!currentLvl) {
-              return this.bot.postMessage(message.channel, constants.oops);
-            }
-            const details = await getDetailsByValue(Number(currentLvl));
-            return this.bot.postMessage(message.channel, constants.level_info(currentLvl, details));
+      if (message.text) {
+        if (message.text === 'lvl' ||
+        message.content && message.content === 'lvl') {
+          const currentLvl = await this.getCurrentLevel();
+          if (!currentLvl) {
+            return;
           }
-      if (message.text && message.text === 'help') {
+          const details = await getDetailsByValue(Number(currentLvl));
+          return this.bot.postMessage(message.channel, constants.level_info(currentLvl, details));
+    }
+      if (message.text === 'help') {
         return this.bot.postMessage(message.channel, constants.helptext);
       }
-      if (message.text && message.text === 'show') {
-          return this.bot.postMessage(message.channel, constants.showText(`http://${webSocketHost}:${webSocketPort}`));
+      if (message.text === 'graph' || message.text === 'stream') {
+          return this.bot.postMessage(message.channel, constants.graphText(`http://${webSocketHost}:${webSocketPort}`));
       }
+      if (checkForGreetingMessage(message.text)) {
+        return this.bot.postMessage(message.channel, constants.greeting);
+      }
+      else {
+        return this.bot.postMessage(message.channel, constants.sorry)
+      }
+    }
+      
+    // add alert :)
     })
   }
 
   getCurrentLevel() { 
-    return axios.get(`http://${webSocketHost}:${webSocketPort}/get`)
+    return axios.get(`http://${webSocketHost}:${webSocketPort}co2`)
       .then((data) => {
         return data.data;
       })

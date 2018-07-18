@@ -11,4 +11,11 @@ module.exports = {
     });
     return result;
   },
+  checkForGreetingMessage: (text) => {
+    return (text && constants.user_greetings.indexOf(text) !== -1 || 
+             constants.user_greetings.some((greet) => {
+            return text.startsWith(greet);
+      })
+    ) 
+  },
 };

@@ -5,11 +5,12 @@ const { EventEmitter } = require('events');
 const path = require('path');
 const fileSystem = require('fs');
 const ws_port = process.env.WEB_SOCKET_PORT;
+const graph = 'index.html';
 
 let event = null;
 
 const server = new createServer((req, res) => {
-    if (req.url === '/get') {
+    if (req.url === 'co2') {
         event = new EventEmitter();
         event.on('data', (data) => {
             res.write(data);
@@ -18,7 +19,7 @@ const server = new createServer((req, res) => {
             event = null;
         });
     } else {
-        const filePath = path.join(__dirname, 'index.html');
+        const filePath = path.join(__dirname, graph);
         res.writeHeader(200, {"Content-Type": "text/html"});
         const readStream = fileSystem.createReadStream(filePath);
         readStream.pipe(res);
