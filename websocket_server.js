@@ -10,7 +10,7 @@ const graph = 'index.html';
 let event = null;
 
 const server = new createServer((req, res) => {
-    if (req.url === 'co2') {
+    if (req.url === '/co2') {
         event = new EventEmitter();
         event.on('data', (data) => {
             res.write(data);

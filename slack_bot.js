@@ -17,7 +17,7 @@ class SlackBot {
           message.username && message.username === 'windowbot') {
         return;
       }
-      if (message.text) {
+      if (message.text || message.content) {
         if (message.text === 'lvl' ||
         message.content && message.content === 'lvl') {
           const currentLvl = await this.getCurrentLevel();
@@ -40,13 +40,12 @@ class SlackBot {
         return this.bot.postMessage(message.channel, constants.sorry)
       }
     }
-      
-    // add alert :)
+
     })
   }
 
   getCurrentLevel() { 
-    return axios.get(`http://${webSocketHost}:${webSocketPort}co2`)
+    return axios.get(`http://${webSocketHost}:${webSocketPort}/co2`)
       .then((data) => {
         return data.data;
       })
