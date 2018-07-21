@@ -6,6 +6,7 @@ const path = require('path');
 const fileSystem = require('fs');
 const ws_port = process.env.WEB_SOCKET_PORT;
 const graph = 'index.html';
+const gif = 'index.gif'
 
 let event = null;
 
@@ -19,8 +20,8 @@ const server = new createServer((req, res) => {
             event = null;
         });
     } else {
-        const filePath = path.join(__dirname, graph);
-        res.writeHeader(200, {"Content-Type": "text/html"});
+        const filePath = path.join(__dirname, gif);
+        res.writeHeader(200, {"Content-Type": "image/gif"});
         const readStream = fileSystem.createReadStream(filePath);
         readStream.pipe(res);
     }

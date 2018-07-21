@@ -41,6 +41,6 @@ module.exports = {
   "oops": "Oops, the bot is down or smth went wrong :-1:",
   "graphText": (url) => `See live stream here :point_right: ${url}`,
   "greeting": "Hey mate :wink:",
-  "user_greetings": ['hi', 'hey', 'Hi', 'Hey', 'Yo', 'yo', 'ping'],
+  "user_greetings": ['hi', 'hey', 'Hi', 'Hey', 'Yo', 'yo', 'ping', 'hello', 'Hello'],
   "sorry": "Sorry bro, I don't get you. Type `help` to view commands."
 }
