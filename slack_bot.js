@@ -26,7 +26,6 @@ class SlackBot {
         const details = await getDetailsByValue(Number(currentLvl));
         return this.bot.postMessage(message.channel, constants.level_info(currentLvl, details));
       }
-
       if (message.text && message.text === 'help') {
         return this.bot.postMessage(message.channel, constants.helptext);
       }
@@ -36,8 +35,8 @@ class SlackBot {
       if (checkForGreetingMessage(message.text)) {
         return this.bot.postMessage(message.channel, constants.greeting);
       }
-      else if (message.text && message.subtitle !== 'windowbot (bot)'){
-        return this.bot.postMessage(message.chhannel, constants.sorry)
+      else if (message.subtitle === 'windowbot (bot)') {
+        return;
       }
     });
   }
