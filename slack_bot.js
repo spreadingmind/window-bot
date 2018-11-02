@@ -4,7 +4,7 @@ const axios = require('axios');
 const webSocketHost = process.env.WEB_SOCKET_HOST || localhost
 const webSocketPort = process.env.WEB_SOCKET_PORT;
 const constants = require('./constants.js');
-const { getDetailsByValue, checkForGreetingMessage } = require('./utils');
+const { getDetailsByValue, checkForGreetingMessage, checkLizMention } = require('./utils');
 
 class SlackBot {
   constructor() {
@@ -36,7 +36,7 @@ class SlackBot {
       if (checkForGreetingMessage(message.text)) {
         return this.bot.postMessage(message.channel, constants.greeting);
       }
-      if (message.text && message.text.includes('<@U5J1FMU76>') || message.text.includes('@U5J1FMU76')) {
+      if (message.text && checkLizMention(message.text)) {
       	return this.bot.postMessage(message.channel, 'Liz is on vacation! Will be back soon ^_^');
       }	    
       else if (message.subtitle === 'windowbot (bot)') {
