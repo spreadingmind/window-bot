@@ -22,7 +22,7 @@ module.exports = {
     ) 
   },
   checkLizMention: (text) => {
-    if (text.includes('<@U5J1FMU76>') || text.includes('@U5J1FMU76') || includes('Лиза')) {
+    if (text.includes('<@U5J1FMU76>') || text.includes('@U5J1FMU76') || text.includes('Лиза')) {
       return true;
     }
     return false;
