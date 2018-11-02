@@ -13,7 +13,8 @@ class SlackBot {
       name: 'windowbot'
     });
     this.bot.on('message', async (message) => {
-      if (message.type && message.type === 'hello' ||
+     console.log(JSON.stringify(message));
+	    if (message.type && message.type === 'hello' ||
         message.username && message.username === 'windowbot') {
         return;
       }
@@ -35,6 +36,9 @@ class SlackBot {
       if (checkForGreetingMessage(message.text)) {
         return this.bot.postMessage(message.channel, constants.greeting);
       }
+      if (message.text && message.text.includes('<@U5J1FMU76>') || message.text.includes('@U5J1FMU76')) {
+      	return this.bot.postMessage(message.channel, 'Liz is on vacation! Will be back soon ^_^');
+      }	    
       else if (message.subtitle === 'windowbot (bot)') {
         return;
       }

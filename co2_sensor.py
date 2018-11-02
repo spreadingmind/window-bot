@@ -3,7 +3,8 @@ import serial, time, sys
 import asyncio
 import websockets
 
-port = '/dev/ttyAMA0'
+#port = '/dev/ttyAMA0'
+port = '/dev/ttyS0'
 websocket_port = 'ws://localhost:8765'
 
 async def pushPPMValue(value):
@@ -25,6 +26,7 @@ def run():
                 ser.write(u'\xff\x01\x86\x00\x00\x00\x00\x00\x79'.encode('latin-1'))
                 time.sleep(1)
                 bytesData = ser.read(9)
+                print (bytesData)
                 concentration = calculatePPM(bytesData)
                 asyncio.get_event_loop().run_until_complete(pushPPMValue(str(concentration)))
                 print('Concentration is %s ppm ' % concentration)
