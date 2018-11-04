@@ -13,12 +13,14 @@ class SlackBot {
       name: 'windowbot'
     });
     this.bot.on('message', async (message) => {
-     console.log(JSON.stringify(message));
-	    if (message.type && message.type === 'hello' ||
+      console.log(JSON.stringify(message));
+      if (message.type && message.type === 'hello' ||
         message.username && message.username === 'windowbot') {
         return;
       }
       if (message.text && message.text === 'lvl' ||
+        message.text && message.text === 'level' ||
+        message.text && message.text === 'air' ||
         message.content && message.content === 'lvl') {
         const currentLvl = await this.getCurrentLevel();
         if (!currentLvl) {
@@ -37,8 +39,8 @@ class SlackBot {
         return this.bot.postMessage(message.channel, constants.greeting);
       }
       if (message.text && checkLizMention(message.text)) {
-      	return this.bot.postMessage(message.channel, 'Liz is on vacation! Will be back soon ^_^');
-      }	    
+        return this.bot.postMessage(message.channel, 'Liz is on vacation! Will be back soon ^_^');
+      }
       else if (message.subtitle === 'windowbot (bot)') {
         return;
       }
