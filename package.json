@@ -1,7 +1,7 @@
 {
   "name": "windowbot",
   "version": "1.0.0",
-  "description": "Window bot for making your life better",
+  "description": "Window bot to make your air and life better",
   "main": "index.js",
   "dependencies": {
     "axios": "^0.18.0",
@@ -12,7 +12,10 @@
     "ws": "^5.2.2"
   },
   "devDependencies": {},
-  "scripts": {},
+  "scripts": {
+    "start": "node slackbot.js",
+    "ws-server": "node websocket_server.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/spreadingmind/window-bot.git"
