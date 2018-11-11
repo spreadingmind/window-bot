@@ -38,9 +38,6 @@ class SlackBot {
       if (checkForGreetingMessage(message.text)) {
         return this.bot.postMessage(message.channel, constants.greeting);
       }
-      if (message.text && checkLizMention(message.text)) {
-        return this.bot.postMessage(message.channel, 'Liz is on vacation! Will be back soon ^_^');
-      }
       else if (message.subtitle === 'windowbot (bot)') {
         return;
       }
