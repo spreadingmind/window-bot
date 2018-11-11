@@ -13,7 +13,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node slackbot.js",
+    "start": "node slack_bot.js",
     "ws-server": "node websocket_server.js"
   },
   "repository": {
